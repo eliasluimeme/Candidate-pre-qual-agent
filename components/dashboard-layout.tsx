@@ -29,21 +29,21 @@ const navigation = [
     url: "/",
     isActive: true,
   },
-  {
-    title: "Applications",
-    icon: Briefcase,
-    url: "/applications",
-  },
-  {
-    title: "Candidates",
-    icon: Users,
-    url: "/candidates",
-  },
-  {
-    title: "Settings",
-    icon: Settings,
-    url: "/settings",
-  },
+  // {
+  //   title: "Applications",
+  //   icon: Briefcase,
+  //   url: "/applications",
+  // },
+  // {
+  //   title: "Candidates",
+  //   icon: Users,
+  //   url: "/candidates",
+  // },
+  // {
+  //   title: "Settings",
+  //   icon: Settings,
+  //   url: "/settings",
+  // },
 ]
 
 export function DashboardLayout({ children }: { children: React.ReactNode }) {
