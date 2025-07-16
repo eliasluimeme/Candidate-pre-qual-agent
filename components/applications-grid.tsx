@@ -29,6 +29,8 @@ const STEPS = [
   { id: "resume-scoring", name: "Resume Scoring" },
   { id: "crm-update", name: "CRM Update" },
   { id: "candidate-contacted", name: "Candidate Contacted" },
+  { id: "candidate-pre-qualified", name: "Candidate Pre-Qualified" },
+  { id: "consultant-notified", name: "Consultant Notified" },
 ]
 
 export function ApplicationsGrid() {

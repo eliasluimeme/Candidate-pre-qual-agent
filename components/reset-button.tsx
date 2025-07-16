@@ -221,10 +221,10 @@ export function ResetButton() {
   return (
     <AlertDialog open={isOpen} onOpenChange={setIsOpen}>
       <AlertDialogTrigger asChild>
-        <Button variant="destructive" size="sm">
+        {/* <Button variant="destructive" size="sm">
           <Trash2 className="h-4 w-4 mr-2" />
           Reset All
-        </Button>
+        </Button> */}
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>

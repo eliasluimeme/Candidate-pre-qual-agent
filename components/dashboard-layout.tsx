@@ -48,10 +48,10 @@ const navigation = [
 
 export function DashboardLayout({ children }: { children: React.ReactNode }) {
   return (
-    <SidebarProvider defaultOpen={true}>
+    <SidebarProvider defaultOpen={false}>
       <Sidebar collapsible="icon">
         <SidebarHeader>
-          <div className="flex items-center gap-2 px-2 py-2">
+          <div className="flex items-center gap-2 px-2 py-2 group-data-[collapsible=icon]:justify-center group-data-[collapsible=icon]:px-0">
             <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-primary text-primary-foreground">
               <Briefcase className="size-4" />
             </div>
@@ -82,14 +82,14 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
           </SidebarGroup>
         </SidebarContent>
 
-        <SidebarFooter>
+        {/* <SidebarFooter>
           <div className="p-2 space-y-2">
             <Button variant="outline" size="sm" className="w-full bg-transparent group-data-[collapsible=icon]:size-8 group-data-[collapsible=icon]:p-0">
               <Bell className="size-4 group-data-[collapsible=icon]:mr-0 mr-2" />
               <span className="group-data-[collapsible=icon]:hidden">Notifications</span>
             </Button>
           </div>
-        </SidebarFooter>
+        </SidebarFooter> */}
       </Sidebar>
 
       <SidebarInset>

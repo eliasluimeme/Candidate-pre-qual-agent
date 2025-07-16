@@ -2,7 +2,7 @@
 DO $$
 DECLARE
     new_app_id UUID;
-    step_names TEXT[] := ARRAY['Email Received', 'Attachment Downloaded', 'Resume Parsing', 'Resume Scoring', 'CRM Update', 'Candidate Contacted'];
+    step_names TEXT[] := ARRAY['Email Received', 'Attachment Downloaded', 'Resume Parsed', 'Resume Scored', 'CRM Updated', 'Candidate Contacted', 'Candidate Pre-Qualified', 'Consultant Notified'];
     step_name TEXT;
     step_order INTEGER;
 BEGIN
@@ -11,8 +11,8 @@ BEGIN
     VALUES ('John Doe', 'john.doe@email.com', 'Software Engineer', NOW(), 1)
     RETURNING id INTO new_app_id;
     
-    -- Create all 6 steps for the new application
-    FOR step_order IN 1..6 LOOP
+    -- Create all 8 steps for the new application
+    FOR step_order IN 1..8 LOOP
         step_name := step_names[step_order];
         
         INSERT INTO application_steps (application_id, step_name, step_order, status, completed_at)
