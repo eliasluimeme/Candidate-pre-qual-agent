@@ -18,6 +18,7 @@ export interface Application {
   candidateEmail: string
   position: string
   resume?: string
+  candidatePhone?: string
   appliedAt: string
   currentStep: number
   steps: ApplicationStep[]
@@ -74,6 +75,7 @@ export function ApplicationsGrid() {
           candidateEmail: app.candidate_email,
           position: app.position,
           resume: app.resume,
+          candidatePhone: app.candidate_phone,
           appliedAt: app.applied_at,
           currentStep: app.current_step,
           steps: app.application_steps
@@ -98,7 +100,7 @@ export function ApplicationsGrid() {
   }, [isInitialLoad])
 
   // Memoize the tables array to prevent recreation
-  const realtimeTables = useMemo(() => ['applications', 'application_steps'], [])
+  const realtimeTables = useMemo(() => ['applications', 'application_steps', 'chat_histories'], [])
 
   // Set up real-time subscription
   const { connectionStatus } = useRealtime({
