@@ -2,9 +2,14 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
+import { Button } from "@/components/ui/button"
 import { Progress } from "@/components/ui/progress"
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
-import { Clock, CheckCircle, Loader2 } from "lucide-react"
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
+import { ScrollArea } from "@/components/ui/scroll-area"
+import { Clock, CheckCircle, Loader2, FileText } from "lucide-react"
+import ReactMarkdown from 'react-markdown'
+import { useState } from 'react'
 import type { Application } from "./applications-grid"
 
 interface ApplicationCardProps {
@@ -12,6 +17,7 @@ interface ApplicationCardProps {
 }
 
 export function ApplicationCard({ application }: ApplicationCardProps) {
+  const [isResumeModalOpen, setIsResumeModalOpen] = useState(false)
   const completedSteps = application.steps.filter((step) => step.status === "completed").length
   const progressPercentage = (completedSteps / application.steps.length) * 100
 
@@ -69,9 +75,34 @@ export function ApplicationCard({ application }: ApplicationCardProps) {
         </div>
 
         <div className="mt-2">
-          <Badge variant="outline" className="text-xs">
-            {application.position}
-          </Badge>
+          <Dialog open={isResumeModalOpen} onOpenChange={setIsResumeModalOpen}>
+            <DialogTrigger asChild>
+              <Button variant="outline" size="sm" className="text-xs h-6 px-2">
+                <FileText className="h-3 w-3 mr-1" />
+                CV
+              </Button>
+            </DialogTrigger>
+            <DialogContent className="max-w-4xl max-h-[80vh]">
+              <DialogHeader>
+                <DialogTitle>Resume - {application.candidateName}</DialogTitle>
+              </DialogHeader>
+              <ScrollArea className="h-[60vh] w-full pr-4">
+                {application.resume ? (
+                  <div className="prose prose-sm dark:prose-invert max-w-none">
+                    <ReactMarkdown>{application.resume}</ReactMarkdown>
+                  </div>
+                ) : (
+                  <div className="flex items-center justify-center h-32 text-center">
+                    <div className="text-muted-foreground">
+                      <FileText className="h-8 w-8 mx-auto mb-2 opacity-50" />
+                      <p>No resume available yet</p>
+                      <p className="text-sm">Resume will appear here once parsed</p>
+                    </div>
+                  </div>
+                )}
+              </ScrollArea>
+            </DialogContent>
+          </Dialog>
         </div>
       </CardHeader>
 

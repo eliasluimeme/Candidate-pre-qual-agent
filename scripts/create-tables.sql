@@ -4,6 +4,7 @@ CREATE TABLE IF NOT EXISTS applications (
   candidate_name TEXT NOT NULL,
   candidate_email TEXT NOT NULL,
   position TEXT NOT NULL,
+  resume TEXT,
   applied_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
   current_step INTEGER DEFAULT 0,
   created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),

@@ -17,6 +17,7 @@ export interface Application {
   candidateName: string
   candidateEmail: string
   position: string
+  resume?: string
   appliedAt: string
   currentStep: number
   steps: ApplicationStep[]
@@ -72,6 +73,7 @@ export function ApplicationsGrid() {
           candidateName: app.candidate_name,
           candidateEmail: app.candidate_email,
           position: app.position,
+          resume: app.resume,
           appliedAt: app.applied_at,
           currentStep: app.current_step,
           steps: app.application_steps

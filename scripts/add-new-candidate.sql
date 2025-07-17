@@ -7,8 +7,8 @@ DECLARE
     step_order INTEGER;
 BEGIN
     -- Insert new application with first step completed
-    INSERT INTO applications (candidate_name, candidate_email, position, applied_at, current_step) 
-    VALUES ('John Doe', 'john.doe@email.com', 'Software Engineer', NOW(), 1)
+    INSERT INTO applications (candidate_name, candidate_email, position, resume, applied_at, current_step) 
+    VALUES ('John Doe', 'john.doe@email.com', 'Software Engineer', NULL, NOW(), 1)
     RETURNING id INTO new_app_id;
     
     -- Create all 8 steps for the new application
