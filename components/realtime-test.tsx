@@ -30,7 +30,7 @@ export function RealtimeTest() {
       setLastCreatedId(data.id)
       
       // Create application steps
-      const stepNames = ['Email Received', 'Attachment Downloaded', 'Resume Parsed', 'Resume Scored', 'CRM Update', 'Candidate Contacted', 'Candidate Pre-Qualified', 'Consultant Notified']
+      const stepNames = ['Email Received', 'Attachment Downloaded', 'Resume Parsing', 'Resume Scoring', 'CRM Update', 'Candidate Contacted', 'Candidate Pre-Qualified', 'Consultant Notified', 'Consultant Replied', 'Meeting Scheduled', 'Meeting Transcribed', 'GTM Sent']
       const steps = stepNames.map((name, index) => ({
         application_id: data.id,
         step_name: name,
@@ -89,44 +89,40 @@ export function RealtimeTest() {
       // Get current application state
       const { data: app } = await supabase
         .from("applications")
-        .select("current_step")
+        .select("current_step, id")
         .eq("id", lastCreatedId)
         .single()
 
-      if (!app || app.current_step >= 8) {
-        console.log("Application already completed or not found")
+      if (!app || app.current_step >= 12) {
+        console.log("No application to advance or already at final step")
         return
       }
 
       const nextStep = app.current_step + 1
+      console.log(`Advancing application ${app.id} to step ${nextStep}`)
 
-      // Mark current step as completed (if not already)
-      if (app.current_step > 0) {
+      // Update the application's current step
+      await supabase
+        .from("applications")
+        .update({ current_step: nextStep })
+        .eq("id", app.id)
+
+      // Update the step status
+      if (nextStep <= 12) {
         await supabase
           .from("application_steps")
-          .update({ status: "completed", completed_at: new Date().toISOString() })
-          .eq("application_id", lastCreatedId)
-          .eq("step_order", app.current_step)
-      }
-
-      // Mark next step as in-progress (if not the last step)
-      if (nextStep <= 8) {
-        await supabase
-          .from("application_steps")
-          .update({ status: nextStep === 8 ? "completed" : "in-progress" })
-          .eq("application_id", lastCreatedId)
+          .update({ status: nextStep === 12 ? "completed" : "in-progress" })
+          .eq("application_id", app.id)
           .eq("step_order", nextStep)
 
-        if (nextStep === 8) {
+        if (nextStep === 12) {
           await supabase
             .from("application_steps")
             .update({ completed_at: new Date().toISOString() })
-            .eq("application_id", lastCreatedId)
+            .eq("application_id", app.id)
             .eq("step_order", nextStep)
         }
       }
-
-      console.log(`Advanced to step ${nextStep}`)
     } catch (error) {
       console.error("Error advancing application:", error)
     } finally {

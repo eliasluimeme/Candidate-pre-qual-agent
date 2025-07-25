@@ -11,12 +11,12 @@ INSERT INTO applications (candidate_name, candidate_email, position, applied_at,
 DO $$
 DECLARE
     app_record RECORD;
-    step_names TEXT[] := ARRAY['Email Received', 'Attachment Downloaded', 'Resume Parsing', 'Resume Scoring', 'Candidate Pre-Qualified', 'Consultant Notified', 'CRM Update', 'Candidate Contacted'];
+    step_names TEXT[] := ARRAY['Email Received', 'Attachment Downloaded', 'Resume Parsing', 'Resume Scoring', 'CRM Update', 'Candidate Contacted', 'Candidate Pre-Qualified', 'Consultant Notified', 'Consultant Replied', 'Meeting Scheduled', 'Meeting Transcribed', 'GTM Sent'];
     step_name TEXT;
     step_order INTEGER;
 BEGIN
     FOR app_record IN SELECT id, current_step FROM applications LOOP
-        FOR step_order IN 1..8 LOOP
+        FOR step_order IN 1..12 LOOP
             step_name := step_names[step_order];
             
             INSERT INTO application_steps (application_id, step_name, step_order, status, completed_at)

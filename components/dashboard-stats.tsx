@@ -33,18 +33,18 @@ export function DashboardStats() {
       // Get total applications count
       const { count: totalCount } = await supabase.from("applications").select("*", { count: "exact", head: true })
 
-      // Get completed applications (where current_step = 8)
+      // Get completed applications (where current_step = 12)
       const { count: completedCount } = await supabase
         .from("applications")
         .select("*", { count: "exact", head: true })
-        .eq("current_step", 8)
+        .eq("current_step", 12)
 
-      // Get in-progress applications (where current_step > 0 and < 8)
+      // Get in-progress applications (where current_step > 0 and < 12)
       const { count: inProgressCount } = await supabase
         .from("applications")
         .select("*", { count: "exact", head: true })
         .gt("current_step", 0)
-        .lt("current_step", 8)
+        .lt("current_step", 12)
 
       // Get pending applications (where current_step = 0)
       const { count: pendingCount } = await supabase

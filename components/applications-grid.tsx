@@ -33,6 +33,10 @@ const STEPS = [
   { id: "candidate-contacted", name: "Candidate Contacted" },
   { id: "candidate-pre-qualified", name: "Candidate Pre-Qualified" },
   { id: "consultant-notified", name: "Consultant Notified" },
+  { id: "consultant-replied", name: "Consultant Replied" },
+  { id: "meeting-scheduled", name: "Meeting Scheduled" },
+  { id: "meeting-transcribed", name: "Meeting Transcribed" },
+  { id: "gtm-sent", name: "GTM Sent" },
 ]
 
 export function ApplicationsGrid() {
